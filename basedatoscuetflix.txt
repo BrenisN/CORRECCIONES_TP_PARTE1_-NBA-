@@ -1,0 +1,188 @@
+	Página web de películas estilo Cuevana
+Estudiante: Nahuel Brenis
+Instituto tecnológico Leopoldo Marechal
+Materia: Aplicaciones para dispositivos
+
+	Resumen
+La idea de negocio propuesta sería hacer una base para una página web de películas con información de películas, links a películas (estilo Cuevana) y una sección de comentarios a partir de un perfil creado, ya sea para comentar o reportar problemas de páginas para el proyecto contaré con distintas tablas
+
+	Tabla clientes (Alta, Baja y Modificación)
+Columnas IdCliente, nameCliente, edad, email, sexo, brevePresentación
+
+	Tabla reporteDeErrores
+Columnas IdCliente, mov_id, reporte
+
+	Tabla movie (Alta, Baja y Modificación)
+Columnas mov_id, mov_title, mov_year, mov_dir, mov_gen_id
+
+	Tabla Genres (Alta, Baja y Modificación)
+Columnas gen_id, gen_title
+	
+
+Diagrama E-R
+ 
+
+Generación de tablas
+
+//Creo la base de datos basicCuevana//
+CREATE DATABASE basicCuevana; 
+//Creo la tabla clientes//
+CREATE TABLE basicCuevana.clientes (
+    idCliente int (10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    nameCliente varchar(30) NOT NULL,
+    edad int (3),
+    email varchar(30) not null,
+    Sexo varchar(30) not null,
+    brevePre varchar(255) not null,
+    PRIMARY KEY (idCliente)
+); 
+//Creo la tabla movie//
+CREATE TABLE basicCuevana.movie (
+    mov_id int (10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    mov_title varchar(50) NOT NULL,
+    mov_year int (4) not null,
+    mov_dir varchar(30) not null,
+mov_gen_id int (10) not null,
+    PRIMARY KEY (mov_id)
+); 
+//Creo la tabla reporteDeErrores//
+
+CREATE TABLE basicCuevana.reporteDeErrores (
+    IdCliente int (10) not null,
+    mov_id int (10) not null,
+    reporte varchar(255) not null,
+repo_id int (10) UNSIGNED NOT NULL AUTO_INCREMENT,    
+    PRIMARY KEY (repo_id)
+); 
+
+
+
+
+//Creo tabla Genres//
+CREATE TABLE basicCuevana.genres (
+    gen_id int (10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    gen_title varchar(50) NOT NULL,
+    PRIMARY KEY (gen_id)
+); 
+
+
+//cosas que corregi para el primer error//
+
+ALTER TABLE `reportedeerrores` CHANGE `mov_id` `mov_id` INT(10) UNSIGNED NOT NULL;
+ALTER TABLE `reportedeerrores` CHANGE `idCliente` `idCLiente` INT(10) UNSIGNED NOT NULL;
+ALTER TABLE `movie` CHANGE `mov_gen_id` `mov_gen_id` INT(10) UNSIGNED NOT NULL;
+
+
+ALTER TABLE clientes
+ADD status VARCHAR(10) NOT NULL;
+
+ALTER TABLE movie
+ADD status VARCHAR(10) NOT NULL;
+
+ALTER TABLE genres
+ADD status VARCHAR(10) NOT NULL;
+
+ALTER TABLE reportedeerrores
+ADD status VARCHAR(10) NOT NULL;
+
+
+//Asigno la FK dando como referencia a la PK de la otra tabla//
+
+ALTER TABLE reporteDeErrores
+ADD FOREIGN KEY(idCliente) REFERENCES clientes(idCliente);
+
+ALTER TABLE reporteDeErrores
+ADD FOREIGN KEY(mov_id) REFERENCES movie(mov_id);
+
+ALTER TABLE movie
+ADD FOREIGN KEY (mov_gen_id) REFERENCES genres(gen_id);
+
+//Inserto los datos a la tabla genres//
+INSERT INTO genres (gen_title,status) VALUES('Accion','active');
+INSERT INTO genres (gen_title,status) VALUES('Aventura','active');
+INSERT INTO genres (gen_title,status) VALUES('Biografia','active'); 
+INSERT INTO genres (gen_title,status) VALUES('Comedia','active');
+INSERT INTO genres (gen_title,status) VALUES('Crimen','active');
+INSERT INTO genres  (gen_title,status) VALUES('Drama','active');
+INSERT INTO genres (gen_title,status) VALUES('Horror','active');
+INSERT INTO genres (gen_title,status) VALUES('Musicales','active');
+INSERT INTO genres (gen_title,status) VALUES('Misterio','active');
+INSERT INTO genres (gen_title,status) VALUES('Romance','active');
+INSERT INTO genres(gen_title,status) VALUES('Thriller','active');
+INSERT INTO genres (gen_title,status) VALUES('Guerra','active');
+
+//Inserto los datos a la tabla movie//
+INSERT INTO movie (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Vertigo', 1958 , 'Alfred Hitchcock',9,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Los inocentes', 1961 , 'Jack Clayton', 7,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Lawrence de Arabia', 1962 , 'David Lean',2 ,'inactive');
+INSERT INTO movie (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('The deer hunter', 1978 , 'Michael Cimino',12,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Amadeus', 1984 , 'Milos Forman',3,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Blade Runner', 1982 , 'Ridley Scott',11,'active');
+INSERT INTO movie (mov_title, mov_year, mov_dir ,mov_gen_id, status)  VALUES('Eyes wide shut', 1999 , 'Stanley Kubrick',9,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('The ussual suspects', 1995, 'Bryan singer',6,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Chinatown', 1974, 'Roman Polanski',4,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Boogie nights', 1997, 'Paul Thomas Anderson',4,'active');
+INSERT INTO movie (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Annie hall', 1977, 'Woody Allen',5,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Princess Mononoke', 1997, 'Hayao Miyazaki',3,'active');
+INSERT INTO movie (mov_title, mov_year, mov_dir ,mov_gen_id, status)  VALUES('The shawshank redemption', 1994, 'Frank Darabont',6,'active');
+INSERT INTO movie (mov_title, mov_year, mov_dir ,mov_gen_id, status)  VALUES('American Beauty', 1999, 'Sam Mendes',6,'inactive');
+INSERT INTO movie (mov_title, mov_year, mov_dir ,mov_gen_id, status)  VALUES('Titanic', 1997, 'James Cameron',10,'active');
+INSERT INTO movie (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Good Will Hunting', 1997, 'Gus van sant',3,'active');
+INSERT INTO movie (mov_title, mov_year, mov_dir ,mov_gen_id, status)  VALUES('Deliverance', 1972, 'John Boorman',5,'active');
+INSERT INTO movie (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Trainspotting', 1996, 'Danny Boyle',6,'inactive');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('The prestige', 2006, 'Christopher Nolan',9,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Donnie Darko', 2001, 'Richard Kelly',9,'active');
+INSERT INTO movie (mov_title, mov_year, mov_dir ,mov_gen_id, status)  VALUES('Slumdog millionaire', 2008, 'Danny Boyle',6,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Aliens', 1986, 'James Cameron',7,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Beyond the sea', 2004, 'Kevin Spacey',5,'inactive');
+INSERT INTO movie (mov_title, mov_year, mov_dir ,mov_gen_id, status)  VALUES('Back to the future', 1985, 'Robert Zemeckis',2,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Braveheart', 1995, 'Mel Gibson',12,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Avatar', 2009, 'James Cameron',2,'active');
+INSERT INTO movie  (mov_title, mov_year, mov_dir ,mov_gen_id, status) VALUES('Batman: the dark knight', 2008, 'Chistopher Nolan',11,'active');
+
+
+
+//Inserto los datos a la tabla clientes//
+INSERT INTO clientes (nameCliente, edad,email, sexo, brevePre,status) VALUES('Nahuel', 26, 'nahuelbrenis@gmail.com', 'Masculino', 'Me gusta el futbol','active');
+
+INSERT INTO clientes(nameCliente, edad,email, sexo, brevePre,status)VALUES('Maria', 25, 'bonaerense@gmail.com', 'Femenino', 'Nadie es indispensable','active');
+INSERT INTO clientes (nameCliente, edad,email, sexo, brevePre,status) VALUES('Mario', 46, 'marito@gmail.com', 'Masculino', 'El cine es arte','active');
+INSERT INTO clientes (nameCliente, edad,email, sexo, brevePre,status) VALUES('Sofia', 28, 'sofiaba@gmail.com', 'Femenino', 'Primero','inactive');
+
+INSERT INTO clientes (nameCliente, edad,email, sexo, brevePre,status) VALUES('Perez', 34, 'perez@gmail.com', 'Femenino', 'Aguante el fernet','active');
+INSERT INTO clientes (nameCliente, edad, email,sexo, brevePre,status)  VALUES('Susana', 18, 'bailarina@gmail.com', 'Femenino', 'Que se repita','active');
+INSERT INTO clientes (nameCliente, edad,email, sexo, brevePre,status) VALUES('Terminator', 96, 'unicos@gmail.com', 'Masculino', 'Awante Niuls','active');
+INSERT INTO clientes (nameCliente, edad,email, sexo, brevePre,status) VALUES('Yoli', 22, 'beryoli@gmail.com', 'Femenino', 'Dame un minuto','inactive');
+INSERT INTO clientes (nameCliente, edad, email,sexo, brevePre,status) VALUES('el', 26, 'santana@gmail.com', 'Masculino', 'Me piden escribir un texto aquí','active');
+INSERT INTO clientes (nameCliente, edad, email,sexo, brevePre,status) VALUES('Petuña', 99, 'esperando@gmail.com', 'Femenino', 'Durmiendo, vuelva en 5 minutos','inactive');
+INSERT INTO clientes (nameCliente, edad,email, sexo, brevePre,status) VALUES('Jimena', 45, 'arteando@gmail.com', 'Femenino', 'Intellestellar es unica','active');
+
+INSERT INTO clientes (nameCliente, edad,email, sexo, brevePre,status) VALUES('Bananero', 33, 'sape@gmail.com', 'Masculino', 'Harry…','active');
+
+
+//Inserto algunos datos a la tabla reportedeerror//
+INSERT INTO reporteDeErrores (idCliente, mov_id, reporte,status) VALUES(2, 6, 'El link está caido','active');
+INSERT INTO reporteDeErrores  (idCliente, mov_id, reporte,status) VALUES(10, 6, 'El link no funciona','active');
+INSERT INTO reporteDeErrores   (idCliente, mov_id, reporte,status) VALUES(12, 20, 'El audio se escucha con ruido','inactive');
+INSERT INTO reporteDeErrores  (idCliente, mov_id, reporte,status) VALUES(8, 22, 'No está la opción de subtitulos','active');
+
+
+
+//Creo dos vistas, la primera que me de las películas de genero Drama //
+CREATE view 
+Drama AS
+SELECT *
+FROM movie 
+WHERE mov_gen_id= 6;
+//y la segunda que me coloque las películas posteriores al 2000//
+CREATE view 
+mov_2000 AS
+SELECT *
+FROM movie
+WHERE mov_year > 2000
+
+//con la funcion Join juntare las peliculas y el genero titulado en vez de su id por genero//
+SELECT movie.mov_id, movie.mov_title, genres.gen_title
+FROM movie movie
+JOIN genres genres ON movie.mov_gen_id = genres.gen_id;
+
